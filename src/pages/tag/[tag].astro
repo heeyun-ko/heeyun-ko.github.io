@@ -1,0 +1,77 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE } from '../../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('posts');
+	const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+	return tags.map((tag) => ({
+		params: { tag },
+		props: { posts: posts.filter((post) => post.data.tags?.includes(tag)) },
+	}));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+// SEO metadata
+const pageTitle = `Posts tagged "${tag}" - ${SITE_TITLE}`;
+const pageDescription = `Browse all posts tagged with "${tag}"`;
+const keywords = ['blog', 'posts', 'articles', tag];
+const ogType = 'website';
+const twitterCard = 'summary_large_image';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title={pageTitle} 
+			description={pageDescription} 
+			keywords={keywords}
+			ogType={ogType}
+			twitterCard={twitterCard}
+		/>
+	</head>
+	<body>
+		<Header />
+		<div class="page-container">
+			<main>
+				<section>
+					<h1>Posts tagged "{tag}"</h1>
+					<ul>
+						{
+							posts.map((post) => (
+								<li>
+									<a href={`/posts/${post.slug}/`}>
+										<div class="post-card">
+											{post.data.heroImage && (
+												<img 
+													src={post.data.heroImage} 
+													alt="" 
+													class="post-image"
+												/>
+											)}
+											<div class="post-content">
+												<h4 class="post-title">{post.data.title}</h4>
+												<p class="post-date">
+													<FormattedDate date={post.data.pubDate} />
+												</p>
+												<p class="post-description">{post.data.description}</p>
+											</div>
+										</div>
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</section>
+			</main>
+			<Footer />
+		</div>
+	</body>
+</html> 
