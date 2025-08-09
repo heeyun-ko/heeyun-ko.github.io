@@ -1,11 +1,13 @@
 name: Deploy docs to gh-pages/docs
 
+permissions:
+  contents: write
+
+
 on:
   push:
     branches:
       - main
-permissions:
-  contents: write
 
 jobs:
   build-and-deploy:
@@ -26,6 +28,3 @@ jobs:
           publish_branch: gh-pages
           publish_dir: ./docs
           destination_dir: docs
-
-
-
