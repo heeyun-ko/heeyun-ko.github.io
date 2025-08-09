@@ -1,23 +1,36 @@
-name: Deploy docs to gh-pages/docs
+name: Build Astro and Deploy to gh-pages/docs
+
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps
+        working-directory: site
+        run: npm ci
+
+      - name: Build
+        working-directory: site
+        run: npm run build   # -> site/dist 생성
+
       - name: Deploy to gh-pages/docs
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: docs
+          folder: site/dist
           target-folder: docs
           clean: true
-          commit-message: "chore: deploy from main/docs via CI"
-
-
+          commit-message: "chore: astro build & deploy"
