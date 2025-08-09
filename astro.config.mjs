@@ -5,7 +5,8 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
+// astro.config.mjs
+
 export default defineConfig({
-	site: 'https://example.com',
-	integrations: [mdx(), sitemap()],
+  outDir: './docs', // 빌드 결과를 docs 폴더로
 });
