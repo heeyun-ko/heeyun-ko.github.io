@@ -1,0 +1,23 @@
+name: Deploy docs to gh-pages/docs
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy to gh-pages/docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs
+          target-folder: docs
+          clean: true
+          commit-message: "chore: deploy from main/docs via CI"
+
+
