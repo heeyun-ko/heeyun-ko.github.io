@@ -2,7 +2,7 @@
 title: '의대생이 AI 연구를 시작한 이유'
 description: '의학과 인공지능, 두 개의 서로 다른 길이 어떻게 하나로 만나게 되었는지에 대한 개인적인 이야기'
 pubDate: 'Dec 10 2024'
-heroImage: '/blog-placeholder-2.jpg'
+heroImage: '../../assets/blog-placeholder-2.jpg'
 ---
 
 "의대생이 왜 AI를 공부하나요?" 이 질문을 정말 많이 받습니다. 주변에서는 의학 공부도 바쁠 텐데 왜 굳이 다른 분야까지 손대느냐며 의아해하기도 합니다. 오늘은 제가 어떻게 의학과 AI라는 두 분야의 교차점을 찾게 되었는지 이야기해보려 합니다.
