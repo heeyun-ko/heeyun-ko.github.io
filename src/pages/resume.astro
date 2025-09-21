@@ -1,0 +1,466 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Resume - ${SITE_TITLE}`} description="Resume of Hee Yun Ko - Medical Student and AI Product Developer" />
+	</head>
+	<body>
+		<Header />
+		<main class="resume">
+			<div class="container">
+				<!-- Header Section -->
+				<header class="resume-header">
+					<h1>Hee Yun Ko</h1>
+					<p class="subtitle">Medical Student · Medical AI Product Development</p>
+					<div class="contact-info">
+						<div class="contact-item">
+							<span>📍 Seoul, Republic of Korea</span>
+						</div>
+						<div class="contact-item">
+							<span>📧 eindel1217@gmail.com</span>
+						</div>
+						<div class="contact-item">
+							<span>🌐 <a href="https://heeyun-ko.github.io">heeyun-ko.github.io</a></span>
+						</div>
+						<div class="contact-item">
+							<span>💼 <a href="https://linkedin.com/in/heeyunko-42b517256" target="_blank">LinkedIn</a></span>
+						</div>
+					</div>
+				</header>
+
+				<!-- Summary -->
+				<section class="summary">
+					<blockquote>
+						"Medical background combined with engineering and design thinking to drive innovation in digital health and user-centered healthcare solutions."
+					</blockquote>
+					<p>
+						Medical student at Chung-Ang University with a focus on computational neuroscience and digital health innovation.
+						Completed a research internship at CNIR IBS, Sungkyunkwan University, gaining hands-on experience with neural data analysis using deep learning, Python, and MATLAB.
+						Founded NeuroXi and served as President of All-Rounder Club, fostering collaboration between medicine and AI through workshops and projects.
+						Dedicated to applying medical expertise and design thinking to create user-centered healthcare solutions that advance digital health.
+					</p>
+				</section>
+
+				<!-- Education -->
+				<section class="education">
+					<h2>Education</h2>
+					<div class="item">
+						<div class="item-header">
+							<h3>Bachelor of Medicine</h3>
+							<span class="date">Mar. 2020 - Feb. 2028 (Expected)</span>
+						</div>
+						<div class="institution">Chung-Ang University, College of Medicine</div>
+						<div class="location">Seoul, S.Korea</div>
+						<ul>
+							<li>Awarded 2021 Dr. Jin Jung-Ju Pharmacy Scholarship for academic excellence and potential</li>
+							<li>Focus on computational neuroscience and digital healthcare innovation</li>
+							<li>Active participation in medical research and healthcare technology development</li>
+						</ul>
+					</div>
+				</section>
+
+				<!-- Experience -->
+				<section class="experience">
+					<h2>Experience</h2>
+
+					<div class="item">
+						<div class="item-header">
+							<h3>Research Intern</h3>
+							<span class="date">Feb. 2025 - May 2025</span>
+						</div>
+						<div class="institution">CNIR IBS, Sungkyunkwan University</div>
+						<div class="location">Seoul, S.Korea</div>
+						<ul>
+							<li>Conducted computational neuroscience projects using deep learning, Python, and MATLAB</li>
+							<li>Developed skills in neural data analysis and machine learning for neuroscience applications</li>
+						</ul>
+					</div>
+
+					<div class="item">
+						<div class="item-header">
+							<h3>Undergraduate Research Intern</h3>
+							<span class="date">Jul. 2024</span>
+						</div>
+						<div class="institution">Neurogenomics Lab, Department of Biology, Chung-Ang University</div>
+						<div class="location">Seoul, S.Korea</div>
+						<ul>
+							<li>Performed nucleic acid extraction, PCR, and other wet lab techniques</li>
+							<li>Explored intersections of neuroscience and genomics through in-depth studies</li>
+							<li>Contributed to research projects in neurogenomics and molecular biology</li>
+						</ul>
+					</div>
+
+					<div class="item">
+						<div class="item-header">
+							<h3>Research Intern</h3>
+							<span class="date">Jul. 2023 - Aug. 2023</span>
+						</div>
+						<div class="institution">JW Lee Center for Global Medicine, Seoul National University</div>
+						<div class="location">Seoul, S.Korea</div>
+						<ul>
+							<li>Analyzed recent research papers on global health and prepared comprehensive reports</li>
+							<li>Participated in medical ethics seminars, discussing ethical dilemmas and solutions in global health</li>
+							<li>Supported research on international healthcare systems and policies</li>
+						</ul>
+					</div>
+				</section>
+
+				<!-- Awards & Honors -->
+				<section class="awards">
+					<h2>Awards & Honors</h2>
+					<div class="awards-grid">
+						<div class="award-item">
+							<div class="award-year">2021</div>
+							<div class="award-name">Dr. Jin Jung-Ju Pharmacy Scholarship</div>
+							<div class="award-org">Chung-Ang University</div>
+							<div class="award-location">Seoul, S.Korea</div>
+						</div>
+						<div class="award-item">
+							<div class="award-year">2023</div>
+							<div class="award-name">AI Center Director's Award (Honorable Mention)</div>
+							<div class="award-org">2023 Digital Healthcare Medical Hackathon</div>
+							<div class="award-location">Busan, S.Korea</div>
+						</div>
+						<div class="award-item">
+							<div class="award-year">2024</div>
+							<div class="award-name">Special Promotion Award</div>
+							<div class="award-org">TEU MED 4th Innovation Contest</div>
+							<div class="award-location">Seoul, S.Korea</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Technical Skills -->
+				<section class="skills">
+					<h2>Technical Skills</h2>
+					<div class="skills-grid">
+						<div class="skill-category">
+							<h4>Programming</h4>
+							<span>Python, MATLAB</span>
+						</div>
+						<div class="skill-category">
+							<h4>Web Development</h4>
+							<span>Astro, Tailwind, GitHub Pages</span>
+						</div>
+						<div class="skill-category">
+							<h4>Tools</h4>
+							<span>Git, GitHub, Obsidian</span>
+						</div>
+						<div class="skill-category">
+							<h4>Research</h4>
+							<span>Deep Learning, Computational Neuroscience, Data Analysis</span>
+						</div>
+					</div>
+				</section>
+
+				<!-- Leadership & Activities -->
+				<section class="leadership">
+					<h2>Leadership & Activities</h2>
+
+					<div class="item">
+						<div class="item-header">
+							<h3>Founder and Operator</h3>
+							<span class="date">Jun. 2024 - Present</span>
+						</div>
+						<div class="institution">NeuroXi (Neuroscience Community for Korean Students)</div>
+						<div class="location">Seoul, S.Korea</div>
+						<ul>
+							<li>Built a platform for sharing knowledge on computational neuroscience and BCI</li>
+							<li>Fostered interdisciplinary collaboration in neuroscience and healthcare technologies</li>
+							<li>Organized workshops and seminars for students interested in brain-computer interfaces</li>
+						</ul>
+					</div>
+
+					<div class="item">
+						<div class="item-header">
+							<h3>President</h3>
+							<span class="date">Sep. 2023 - Jun. 2024</span>
+						</div>
+						<div class="institution">All-Rounder Club (College of Medicine, Chung-Ang University)</div>
+						<div class="location">Seoul, S.Korea</div>
+						<ul>
+							<li>Officially recognized as a venture club by the Chung-Ang University LINC 3.0 Startup Support Program</li>
+							<li>Organized symposiums with experts in medicine and artificial intelligence (AI)</li>
+							<li>Led initiatives to bridge medicine and technology through collaborative projects</li>
+						</ul>
+					</div>
+
+					<div class="item">
+						<div class="item-header">
+							<h3>Executive Team Member</h3>
+							<span class="date">Mar. 2022 - Dec. 2023</span>
+						</div>
+						<div class="institution">Tobedoctor</div>
+						<div class="location">Seoul, S.Korea</div>
+						<ul>
+							<li>Organized the 10th Young Doctors' Forum in 2023</li>
+							<li>Published issues of a magazine for medical students, covering topics like medical ethics and digital healthcare innovation</li>
+							<li>Created video interviews with healthcare startup founders, showcasing innovation</li>
+						</ul>
+					</div>
+
+					<div class="item">
+						<div class="item-header">
+							<h3>Member of the 4th Student Entrepreneurship Association</h3>
+							<span class="date">Sep. 2024 - Nov. 2024</span>
+						</div>
+						<div class="institution">Heba</div>
+						<div class="location">Seoul, S.Korea</div>
+						<ul>
+							<li>Conducted user interviews and gathered feedback to update ideas</li>
+							<li>Developed UX optimization strategies during the early stages of product development</li>
+							<li>Collaborated with fellow entrepreneurs to refine business models</li>
+						</ul>
+					</div>
+				</section>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.resume {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 2rem;
+		line-height: 1.6;
+		color: #333;
+	}
+
+	.container {
+		background: white;
+		padding: 3rem;
+		border-radius: 8px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+
+	.resume-header {
+		text-align: center;
+		margin-bottom: 3rem;
+		padding-bottom: 2rem;
+		border-bottom: 2px solid #e5e7eb;
+	}
+
+	.resume-header h1 {
+		font-size: 3rem;
+		margin-bottom: 0.5rem;
+		color: #1f2937;
+		font-weight: 700;
+	}
+
+	.subtitle {
+		font-size: 1.25rem;
+		color: #6b7280;
+		margin-bottom: 1.5rem;
+		font-weight: 500;
+	}
+
+	.contact-info {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1.5rem;
+		font-size: 0.95rem;
+	}
+
+	.contact-item span {
+		color: #4b5563;
+	}
+
+	.contact-item a {
+		color: #3b82f6;
+		text-decoration: none;
+	}
+
+	.contact-item a:hover {
+		text-decoration: underline;
+	}
+
+	.summary {
+		margin-bottom: 3rem;
+	}
+
+	.summary blockquote {
+		font-size: 1.1rem;
+		font-style: italic;
+		color: #374151;
+		margin: 0 0 1.5rem 0;
+		padding: 1.5rem;
+		background: #f9fafb;
+		border-left: 4px solid #3b82f6;
+		border-radius: 0 4px 4px 0;
+	}
+
+	.summary p {
+		color: #4b5563;
+		font-size: 1rem;
+	}
+
+	section {
+		margin-bottom: 3rem;
+	}
+
+	section h2 {
+		font-size: 1.75rem;
+		color: #1f2937;
+		margin-bottom: 1.5rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 2px solid #e5e7eb;
+		font-weight: 600;
+	}
+
+	.item {
+		margin-bottom: 2rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.item:last-child {
+		border-bottom: none;
+		margin-bottom: 0;
+	}
+
+	.item-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 0.5rem;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.item h3 {
+		font-size: 1.25rem;
+		color: #1f2937;
+		margin: 0;
+		font-weight: 600;
+	}
+
+	.date {
+		color: #6b7280;
+		font-weight: 500;
+		font-size: 0.95rem;
+	}
+
+	.institution {
+		font-weight: 600;
+		color: #374151;
+		font-size: 1.05rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.location {
+		color: #6b7280;
+		font-size: 0.9rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.item ul {
+		margin: 0;
+		padding-left: 1.25rem;
+	}
+
+	.item li {
+		margin-bottom: 0.5rem;
+		color: #4b5563;
+	}
+
+	.awards-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.award-item {
+		padding: 1.5rem;
+		background: #f9fafb;
+		border-radius: 6px;
+		border-left: 4px solid #3b82f6;
+	}
+
+	.award-year {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: #3b82f6;
+		margin-bottom: 0.5rem;
+	}
+
+	.award-name {
+		font-weight: 600;
+		color: #1f2937;
+		margin-bottom: 0.25rem;
+	}
+
+	.award-org {
+		color: #374151;
+		font-size: 0.95rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.award-location {
+		color: #6b7280;
+		font-size: 0.9rem;
+	}
+
+	.skills-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.skill-category {
+		padding: 1.25rem;
+		background: #f9fafb;
+		border-radius: 6px;
+		border-top: 3px solid #3b82f6;
+	}
+
+	.skill-category h4 {
+		margin: 0 0 0.75rem 0;
+		color: #1f2937;
+		font-size: 1.1rem;
+		font-weight: 600;
+	}
+
+	.skill-category span {
+		color: #4b5563;
+		font-size: 0.95rem;
+	}
+
+	@media (max-width: 768px) {
+		.resume {
+			padding: 1rem;
+		}
+
+		.container {
+			padding: 1.5rem;
+		}
+
+		.resume-header h1 {
+			font-size: 2rem;
+		}
+
+		.contact-info {
+			flex-direction: column;
+			align-items: center;
+			gap: 0.75rem;
+		}
+
+		.item-header {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.awards-grid,
+		.skills-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
