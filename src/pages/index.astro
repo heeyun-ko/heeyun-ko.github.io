@@ -12,38 +12,368 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+		<main class="home">
+			<div class="container">
+				<!-- Hero Section -->
+				<section class="hero">
+					<h1>Hi, I'm <span class="name">Hee Yun Ko</span></h1>
+					<p class="subtitle">Medical Student & Medical AI Product Developer</p>
+					<p class="tagline">"Bridging Medicine and Technology to Transform Healthcare"</p>
+
+					<div class="cta-buttons">
+						<a href="/resume" class="btn btn-primary">View Resume</a>
+						<a href="mailto:eindel1217@gmail.com" class="btn btn-secondary">Contact Me</a>
+					</div>
+				</section>
+
+				<!-- About Preview -->
+				<section class="about-preview">
+					<h2>About</h2>
+					<p>
+						I'm a medical student at Chung-Ang University with a passion for computational neuroscience and digital health innovation.
+						Through research internships, founding NeuroXi, and leading healthcare technology initiatives, I'm dedicated to applying
+						medical expertise and design thinking to create user-centered solutions that advance digital health.
+					</p>
+				</section>
+
+				<!-- Current Focus -->
+				<section class="current-focus">
+					<h2>Current Focus</h2>
+					<div class="focus-grid">
+						<div class="focus-item">
+							<h3>🧠 Computational Neuroscience</h3>
+							<p>Neural data analysis using deep learning and machine learning techniques</p>
+						</div>
+						<div class="focus-item">
+							<h3>🏥 Digital Health Innovation</h3>
+							<p>Developing user-centered healthcare solutions at the intersection of medicine and technology</p>
+						</div>
+						<div class="focus-item">
+							<h3>🤝 Community Building</h3>
+							<p>Fostering collaboration between medical professionals and AI researchers through NeuroXi</p>
+						</div>
+						<div class="focus-item">
+							<h3>📚 Medical Education</h3>
+							<p>Pursuing Bachelor of Medicine with focus on computational approaches to healthcare</p>
+						</div>
+					</div>
+				</section>
+
+				<!-- Recent Achievements -->
+				<section class="achievements">
+					<h2>Recent Achievements</h2>
+					<div class="achievement-list">
+						<div class="achievement">
+							<span class="year">2024</span>
+							<div class="content">
+								<strong>Founded NeuroXi</strong> - Building a platform for computational neuroscience knowledge sharing
+							</div>
+						</div>
+						<div class="achievement">
+							<span class="year">2024</span>
+							<div class="content">
+								<strong>Special Promotion Award</strong> - TEU MED 4th Innovation Contest
+							</div>
+						</div>
+						<div class="achievement">
+							<span class="year">2023</span>
+							<div class="content">
+								<strong>AI Center Director's Award</strong> - Digital Healthcare Medical Hackathon
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Connect -->
+				<section class="connect">
+					<h2>Let's Connect</h2>
+					<p>
+						I'm always interested in discussing innovative projects at the intersection of medicine and technology.
+						Whether you're working on healthcare AI, computational neuroscience, or digital health solutions, I'd love to connect.
+					</p>
+					<div class="connect-links">
+						<a href="https://linkedin.com/in/heeyunko-42b517256" target="_blank" class="connect-link">
+							LinkedIn
+						</a>
+						<a href="https://github.com/heeyun-ko" target="_blank" class="connect-link">
+							GitHub
+						</a>
+						<a href="mailto:eindel1217@gmail.com" class="connect-link">
+							Email
+						</a>
+					</div>
+				</section>
+			</div>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.home {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+		line-height: 1.6;
+	}
+
+	.container {
+		max-width: 100%;
+	}
+
+	/* Hero Section */
+	.hero {
+		text-align: center;
+		padding: 4rem 0 6rem;
+		border-bottom: 1px solid #e5e7eb;
+		margin-bottom: 4rem;
+	}
+
+	.hero h1 {
+		font-size: 3.5rem;
+		margin-bottom: 1rem;
+		color: #1f2937;
+		font-weight: 300;
+		letter-spacing: -0.02em;
+	}
+
+	.name {
+		font-weight: 600;
+		color: #3b82f6;
+	}
+
+	.subtitle {
+		font-size: 1.5rem;
+		color: #6b7280;
+		margin-bottom: 1.5rem;
+		font-weight: 400;
+	}
+
+	.tagline {
+		font-size: 1.1rem;
+		color: #4b5563;
+		font-style: italic;
+		margin-bottom: 3rem;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.cta-buttons {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.btn {
+		padding: 0.75rem 1.5rem;
+		border-radius: 6px;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 1rem;
+		transition: all 0.2s ease;
+		border: 2px solid transparent;
+	}
+
+	.btn-primary {
+		background: #3b82f6;
+		color: white;
+	}
+
+	.btn-primary:hover {
+		background: #2563eb;
+		transform: translateY(-1px);
+	}
+
+	.btn-secondary {
+		color: #3b82f6;
+		border-color: #3b82f6;
+	}
+
+	.btn-secondary:hover {
+		background: #3b82f6;
+		color: white;
+		transform: translateY(-1px);
+	}
+
+	/* Section Styling */
+	section {
+		margin-bottom: 4rem;
+	}
+
+	section h2 {
+		font-size: 2rem;
+		color: #1f2937;
+		margin-bottom: 1.5rem;
+		font-weight: 500;
+		letter-spacing: -0.01em;
+	}
+
+	section p {
+		color: #4b5563;
+		font-size: 1.1rem;
+		line-height: 1.7;
+	}
+
+	/* About Preview */
+	.about-preview {
+		text-align: center;
+		padding: 2rem 0;
+	}
+
+	.about-preview p {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	/* Current Focus */
+	.focus-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+
+	.focus-item {
+		padding: 2rem;
+		background: #f9fafb;
+		border-radius: 8px;
+		border-left: 4px solid #3b82f6;
+	}
+
+	.focus-item h3 {
+		font-size: 1.2rem;
+		color: #1f2937;
+		margin-bottom: 0.75rem;
+		font-weight: 600;
+	}
+
+	.focus-item p {
+		color: #6b7280;
+		font-size: 1rem;
+		margin: 0;
+	}
+
+	/* Achievements */
+	.achievement-list {
+		space-y: 1.5rem;
+	}
+
+	.achievement {
+		display: flex;
+		align-items: flex-start;
+		gap: 1.5rem;
+		padding: 1.5rem 0;
+		border-bottom: 1px solid #f3f4f6;
+	}
+
+	.achievement:last-child {
+		border-bottom: none;
+	}
+
+	.year {
+		font-weight: 600;
+		color: #3b82f6;
+		font-size: 1.1rem;
+		min-width: 60px;
+	}
+
+	.content {
+		color: #4b5563;
+		line-height: 1.6;
+	}
+
+	.content strong {
+		color: #1f2937;
+		font-weight: 600;
+	}
+
+	/* Connect Section */
+	.connect {
+		text-align: center;
+		padding: 3rem 0;
+		background: #f9fafb;
+		border-radius: 12px;
+		margin: 3rem 0;
+	}
+
+	.connect p {
+		max-width: 600px;
+		margin: 0 auto 2rem;
+	}
+
+	.connect-links {
+		display: flex;
+		gap: 2rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.connect-link {
+		color: #3b82f6;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 1.1rem;
+		padding: 0.5rem 1rem;
+		border-radius: 6px;
+		transition: all 0.2s ease;
+	}
+
+	.connect-link:hover {
+		background: #3b82f6;
+		color: white;
+		transform: translateY(-1px);
+	}
+
+	/* Responsive Design */
+	@media (max-width: 768px) {
+		.home {
+			padding: 1rem;
+		}
+
+		.hero {
+			padding: 2rem 0 3rem;
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+
+		.subtitle {
+			font-size: 1.2rem;
+		}
+
+		.tagline {
+			font-size: 1rem;
+		}
+
+		.cta-buttons {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.btn {
+			width: 100%;
+			max-width: 200px;
+		}
+
+		.focus-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.achievement {
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.connect-links {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		section h2 {
+			font-size: 1.5rem;
+		}
+	}
+</style>
