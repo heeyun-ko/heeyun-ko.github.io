@@ -2,7 +2,7 @@
 title: '뇌-컴퓨터 인터페이스(BCI) 입문 가이드'
 description: 'BCI 기술의 기초부터 최신 동향까지, NeuroXi 커뮤니티 운영 경험을 바탕으로 한 완전 입문 가이드'
 pubDate: 'Dec 15 2024'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+heroImage: '../../assets/bci.jpg'
 ---
 
 뇌-컴퓨터 인터페이스(Brain-Computer Interface, BCI)는 뇌와 외부 장치 간의 직접적인 소통 채널을 구축하는 기술입니다. SF 영화에서나 볼 법한 이야기가 이제 현실이 되어가고 있습니다.

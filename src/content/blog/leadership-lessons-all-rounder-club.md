@@ -2,7 +2,7 @@
 title: 'All-Rounder Club 회장으로서 배운 리더십'
 description: '의과대학 벤처 동아리를 이끌며 얻은 리더십 인사이트와 의학-기술 융합 프로젝트 운영 경험'
 pubDate: 'Dec 5 2024'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+heroImage: '../../assets/allrounder.jpeg'
 ---
 
 2023년 9월부터 2024년 6월까지, 저는 중앙대학교 의과대학 All-Rounder Club의 회장을 맡았습니다. 단순한 동아리가 아닌, **중앙대학교 LINC 3.0 창업지원사업에 공식 인정받은 벤처 클럽**을 이끄는 것은 제게 큰 도전이자 성장의 기회였습니다.
