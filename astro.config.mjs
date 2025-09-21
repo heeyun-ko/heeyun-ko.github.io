@@ -8,5 +8,7 @@ import { defineConfig } from 'astro/config';
 // astro.config.mjs
 
 export default defineConfig({
+  site: 'https://heeyun-ko.github.io',
   outDir: './docs', // 빌드 결과를 docs 폴더로
+  integrations: [mdx(), sitemap()],
 });
