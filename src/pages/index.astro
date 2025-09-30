@@ -55,30 +55,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 					</div>
 				</section>
 
-				<!-- Recent Achievements -->
-				<section class="achievements">
-					<h2>Recent Achievements</h2>
-					<div class="achievement-list">
-						<div class="achievement">
-							<span class="year">2024</span>
-							<div class="content">
-								<strong>Founded NeuroXi</strong> - Building a platform for computational neuroscience knowledge sharing
-							</div>
-						</div>
-						<div class="achievement">
-							<span class="year">2024</span>
-							<div class="content">
-								<strong>Special Promotion Award</strong> - TEU MED 4th Innovation Contest
-							</div>
-						</div>
-						<div class="achievement">
-							<span class="year">2023</span>
-							<div class="content">
-								<strong>AI Center Director's Award</strong> - Digital Healthcare Medical Hackathon
-							</div>
-						</div>
-					</div>
-				</section>
 
 				<!-- Connect -->
 				<section class="connect">
@@ -251,39 +227,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		margin: 0;
 	}
 
-	/* Achievements */
-	.achievement-list {
-		space-y: 1.5rem;
-	}
-
-	.achievement {
-		display: flex;
-		align-items: flex-start;
-		gap: 1.5rem;
-		padding: 1.5rem 0;
-		border-bottom: 1px solid #f3f4f6;
-	}
-
-	.achievement:last-child {
-		border-bottom: none;
-	}
-
-	.year {
-		font-weight: 600;
-		color: #3b82f6;
-		font-size: 1.1rem;
-		min-width: 60px;
-	}
-
-	.content {
-		color: #4b5563;
-		line-height: 1.6;
-	}
-
-	.content strong {
-		color: #1f2937;
-		font-weight: 600;
-	}
 
 	/* Connect Section */
 	.connect {
@@ -358,10 +301,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 			grid-template-columns: 1fr;
 		}
 
-		.achievement {
-			flex-direction: column;
-			gap: 0.5rem;
-		}
 
 		.connect-links {
 			flex-direction: column;
