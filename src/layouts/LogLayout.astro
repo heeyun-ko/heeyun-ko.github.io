@@ -66,12 +66,17 @@ const { title, description } = Astro.props;
 	}
 
 	.log-content h3 {
-		font-size: 1.4rem;
+		font-size: 1.1rem;
 		color: #1f2937;
 		margin: 2rem 0 1rem 0;
 		padding: 1rem 0 0.5rem 0;
 		border-bottom: 1px solid #f3f4f6;
 		font-weight: 600;
+		line-height: 1.2;
+		word-break: keep-all;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.log-content h3:first-child {
@@ -141,7 +146,10 @@ const { title, description } = Astro.props;
 		}
 
 		.log-content h3 {
-			font-size: 1.2rem;
+			font-size: 1rem;
+			white-space: normal;
+			overflow: visible;
+			text-overflow: unset;
 		}
 	}
 </style>
