@@ -316,10 +316,10 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		}
 
 		.btn {
-			width: 100%;
-			max-width: 240px;
-			padding: 0.85rem 1.5rem;
-			font-size: 1.05rem;
+			width: calc(100% - 2rem);
+			max-width: 280px;
+			padding: 0.85rem 1.25rem;
+			font-size: 1rem;
 		}
 
 		.focus-grid {
@@ -347,8 +347,8 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		}
 
 		.connect-link {
-			width: 100%;
-			max-width: 200px;
+			width: calc(100% - 2rem);
+			max-width: 240px;
 		}
 
 		section h2 {
@@ -383,8 +383,15 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		}
 
 		.btn {
+			width: calc(100% - 1rem);
 			max-width: 100%;
-			padding: 0.9rem 1.25rem;
+			padding: 0.85rem 1rem;
+			font-size: 0.95rem;
+		}
+
+		.connect-link {
+			width: calc(100% - 1rem);
+			max-width: 100%;
 		}
 
 		.focus-item {
@@ -393,6 +400,91 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 		section h2 {
 			font-size: 1.05rem;
+		}
+	}
+
+	/* Mobile landscape mode */
+	@media (max-width: 896px) and (orientation: landscape) {
+		.home {
+			padding: 1rem 0.75rem;
+		}
+
+		.hero {
+			padding: 1.5rem 0 2rem;
+			margin-bottom: 2rem;
+		}
+
+		.hero h1 {
+			font-size: 2rem;
+		}
+
+		.subtitle {
+			font-size: 1rem;
+		}
+
+		.tagline {
+			font-size: 0.9rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.cta-buttons {
+			flex-direction: row;
+			justify-content: center;
+			gap: 0.75rem;
+		}
+
+		.btn {
+			width: auto;
+			max-width: 180px;
+			padding: 0.65rem 1.25rem;
+			font-size: 0.95rem;
+		}
+
+		.focus-grid {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1rem;
+		}
+
+		.focus-item {
+			padding: 1rem;
+		}
+
+		.focus-item h3 {
+			font-size: 1rem;
+		}
+
+		.focus-item p {
+			font-size: 0.9rem;
+		}
+
+		.connect {
+			padding: 1.5rem 1rem;
+			margin: 1.5rem 0;
+		}
+
+		.connect-links {
+			flex-direction: row;
+			gap: 1rem;
+		}
+
+		.connect-link {
+			width: auto;
+			max-width: 150px;
+			padding: 0.65rem 1rem;
+			font-size: 1rem;
+		}
+
+		section {
+			margin-bottom: 2.5rem;
+		}
+
+		section h2 {
+			font-size: 1.1rem;
+			margin-bottom: 1rem;
+		}
+
+		section p {
+			font-size: 0.95rem;
 		}
 	}
 </style>
