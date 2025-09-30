@@ -293,14 +293,15 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		}
 
 		.btn {
-			width: 100%;
-			max-width: 200px;
+			width: calc(100% - 2rem);
+			max-width: 280px;
+			/* Ensure touch targets are at least 44px height */
+			min-height: 44px;
 		}
 
 		.focus-grid {
 			grid-template-columns: 1fr;
 		}
-
 
 		.connect-links {
 			flex-direction: column;
@@ -309,6 +310,36 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 		section h2 {
 			font-size: 1.1rem;
+		}
+	}
+
+	/* Small mobile optimization */
+	@media (max-width: 480px) {
+		.hero h1 {
+			font-size: 2rem;
+		}
+
+		.subtitle {
+			font-size: 1.1rem;
+		}
+
+		.btn {
+			width: calc(100% - 1rem);
+			max-width: 280px;
+			font-size: 0.95rem;
+			padding: 0.7rem 1.25rem;
+		}
+
+		.focus-item {
+			padding: 1.5rem;
+		}
+
+		.focus-item h3 {
+			font-size: 1.1rem;
+		}
+
+		.connect {
+			padding: 2rem 1rem;
 		}
 	}
 </style>
