@@ -1,0 +1,147 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main class="log-layout">
+			<div class="container">
+				<header class="log-header">
+					<h1>{title}</h1>
+				</header>
+
+				<section class="log-content">
+					<slot />
+				</section>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.log-layout {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+		line-height: 1.6;
+	}
+
+	.container {
+		max-width: 100%;
+	}
+
+	.log-header {
+		text-align: center;
+		padding: 2rem 0 3rem;
+		border-bottom: 2px solid #e5e7eb;
+		margin-bottom: 3rem;
+	}
+
+	.log-header h1 {
+		font-size: 2.5rem;
+		margin: 0;
+		color: #1f2937;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+
+	.log-content {
+		color: #374151;
+		font-size: 1.1rem;
+	}
+
+	.log-content h3 {
+		font-size: 1.4rem;
+		color: #1f2937;
+		margin: 2rem 0 1rem 0;
+		padding: 1rem 0 0.5rem 0;
+		border-bottom: 1px solid #f3f4f6;
+		font-weight: 600;
+	}
+
+	.log-content h3:first-child {
+		margin-top: 0;
+	}
+
+	.log-content p {
+		margin-bottom: 1.5rem;
+		line-height: 1.7;
+	}
+
+	.log-content ul, .log-content ol {
+		margin-bottom: 1.5rem;
+		padding-left: 2rem;
+	}
+
+	.log-content li {
+		margin-bottom: 0.5rem;
+	}
+
+	.log-content blockquote {
+		border-left: 4px solid #3b82f6;
+		padding-left: 1.5rem;
+		margin: 2rem 0;
+		font-style: italic;
+		color: #6b7280;
+	}
+
+	.log-content code {
+		background: #f3f4f6;
+		padding: 0.2rem 0.4rem;
+		border-radius: 3px;
+		font-size: 0.9em;
+		color: #374151;
+	}
+
+	.log-content pre {
+		background: #1f2937;
+		color: #f9fafb;
+		padding: 1.5rem;
+		border-radius: 8px;
+		overflow-x: auto;
+		margin: 1.5rem 0;
+	}
+
+	.log-content pre code {
+		background: none;
+		padding: 0;
+		color: inherit;
+	}
+
+	@media (max-width: 768px) {
+		.log-layout {
+			padding: 1rem;
+		}
+
+		.log-header {
+			padding: 1rem 0 2rem;
+		}
+
+		.log-header h1 {
+			font-size: 2rem;
+		}
+
+		.log-content {
+			font-size: 1rem;
+		}
+
+		.log-content h3 {
+			font-size: 1.2rem;
+		}
+	}
+</style>
