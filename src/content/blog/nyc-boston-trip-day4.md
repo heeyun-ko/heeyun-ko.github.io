@@ -1,7 +1,7 @@
 ---
-title: '미국 뉴욕 여행 4일차 기록'
+title: '미국 동부 여행기 (뉴욕, 보스턴)'
 description: '뉴욕에서 보스턴까지, 이방인의 생존법을 찾아서'
-pubDate: 'Oct 20 2025'
+pubDate: 'Oct 19 2025'
 heroImage: ''
 ---
 
