@@ -1,5 +1,5 @@
-import { e as createAstro, c as createComponent, m as maybeRenderHead, b as addAttribute, d as renderTemplate } from './astro/server.D6wEFtB3.js';
-import 'kleur/colors';
+import { e as createAstro, c as createComponent, m as maybeRenderHead, b as addAttribute, d as renderTemplate } from './astro/server.o3BtfGB2.js';
+import 'piccolore';
 import 'clsx';
 
 const $$Astro = createAstro("https://heeyun-ko.github.io");
@@ -12,6 +12,6 @@ const $$FormattedDate = createComponent(($$result, $$props, $$slots) => {
     month: "short",
     day: "numeric"
   })} </time>`;
-}, "/Users/koheeyoun/src/components/FormattedDate.astro", void 0);
+}, "/Users/koheeyun/Documents/im_document/heeyun-ko.github.io/src/components/FormattedDate.astro", void 0);
 
 export { $$FormattedDate as $ };

@@ -1,4 +1,4 @@
-import 'kleur/colors';
+import 'piccolore';
 import { clsx } from 'clsx';
 import { escape } from 'html-escaper';
 import { encodeBase64, encodeHexUpperCase, decodeBase64 } from '@oslojs/encoding';
@@ -71,7 +71,7 @@ class AstroError extends Error {
     this.frame = codeFrame(source, location);
   }
   static is(err) {
-    return err.type === "AstroError";
+    return err?.type === "AstroError";
   }
 }
 class AstroUserError extends Error {
@@ -87,7 +87,7 @@ class AstroUserError extends Error {
     this.hint = hint;
   }
   static is(err) {
-    return err.type === "AstroUserError";
+    return err?.type === "AstroUserError";
   }
 }
 
@@ -226,7 +226,7 @@ const FontFamilyNotFound = {
   name: "FontFamilyNotFound",
   title: "Font family not found",
   message: (family) => `No data was found for the \`"${family}"\` family passed to the \`<Font>\` component.`,
-  hint: "This is often caused by a typo. Check that your Font component is using a `cssVariable` specified in your config."
+  hint: "This is often caused by a typo. Check that the `<Font />` component or `getFontData()` function are using a `cssVariable` specified in your config."
 };
 const UnknownContentCollectionError = {
   name: "UnknownContentCollectionError",
@@ -272,7 +272,7 @@ function createComponent(arg1, moduleId, propagation) {
   }
 }
 
-const ASTRO_VERSION = "5.12.9";
+const ASTRO_VERSION = "5.16.6";
 const NOOP_MIDDLEWARE_HEADER = "X-Astro-Noop";
 
 function createAstroGlobFn() {
@@ -298,8 +298,6 @@ Use import.meta.glob instead: https://vitejs.dev/guide/features.html#glob-import
 }
 function createAstro(site) {
   return {
-    // TODO: this is no longer necessary for `Astro.site`
-    // but it somehow allows working around caching issues in content collections for some tests
     site: new URL(site) ,
     generator: `Astro v${ASTRO_VERSION}`,
     glob: createAstroGlobFn()
@@ -752,7 +750,7 @@ function renderCspContent(result) {
   for (const scriptHash of result._metadata.extraScriptHashes) {
     finalScriptHashes.add(`'${scriptHash}'`);
   }
-  let directives = "";
+  let directives;
   if (result.directives.length > 0) {
     directives = result.directives.join(";") + ";";
   }
@@ -767,7 +765,7 @@ function renderCspContent(result) {
   const strictDynamic = result.isStrictDynamic ? ` 'strict-dynamic'` : "";
   const scriptSrc = `script-src ${scriptResources} ${Array.from(finalScriptHashes).join(" ")}${strictDynamic};`;
   const styleSrc = `style-src ${styleResources} ${Array.from(finalStyleHashes).join(" ")};`;
-  return `${directives} ${scriptSrc} ${styleSrc}`;
+  return [directives, scriptSrc, styleSrc].filter(Boolean).join(" ");
 }
 
 const RenderInstructionSymbol = Symbol.for("astro:render");
@@ -781,7 +779,7 @@ function isRenderInstruction(chunk) {
 }
 
 const voidElementNames = /^(area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/i;
-const htmlBooleanAttributes = /^(?:allowfullscreen|async|autofocus|autoplay|checked|controls|default|defer|disabled|disablepictureinpicture|disableremoteplayback|formnovalidate|hidden|inert|loop|nomodule|novalidate|open|playsinline|readonly|required|reversed|scoped|seamless|selected|itemscope)$/i;
+const htmlBooleanAttributes = /^(?:allowfullscreen|async|autofocus|autoplay|checked|controls|default|defer|disabled|disablepictureinpicture|disableremoteplayback|formnovalidate|hidden|inert|loop|muted|nomodule|novalidate|open|playsinline|readonly|required|reversed|scoped|seamless|selected|itemscope)$/i;
 const AMPERSAND_REGEX = /&/g;
 const DOUBLE_QUOTE_REGEX = /"/g;
 const STATIC_DIRECTIVES = /* @__PURE__ */ new Set(["set:html", "set:text"]);
@@ -1039,7 +1037,10 @@ z.custom((value) => {
 const ALGORITHM = "AES-GCM";
 async function decodeKey(encoded) {
   const bytes = decodeBase64(encoded);
-  return crypto.subtle.importKey("raw", bytes, ALGORITHM, true, ["encrypt", "decrypt"]);
+  return crypto.subtle.importKey("raw", bytes.buffer, ALGORITHM, true, [
+    "encrypt",
+    "decrypt"
+  ]);
 }
 const encoder = new TextEncoder();
 new TextDecoder();
@@ -1310,13 +1311,14 @@ class ServerIslandComponent {
     }
     const key = await this.result.key;
     const propsEncrypted = Object.keys(this.props).length === 0 ? "" : await encryptString(key, JSON.stringify(this.props));
+    const slotsEncrypted = Object.keys(renderedSlots).length === 0 ? "" : await encryptString(key, JSON.stringify(renderedSlots));
     const hostId = await this.getHostId();
     const slash = this.result.base.endsWith("/") ? "" : "/";
     let serverIslandUrl = `${this.result.base}${slash}_server-islands/${componentId}${this.result.trailingSlash === "always" ? "/" : ""}`;
     const potentialSearchParams = createSearchParams(
       componentExport,
       propsEncrypted,
-      safeJsonStringify(renderedSlots)
+      slotsEncrypted
     );
     const useGETRequest = isWithinURLLimit(serverIslandUrl, potentialSearchParams);
     if (useGETRequest) {
@@ -1327,19 +1329,24 @@ class ServerIslandComponent {
         )
       );
     }
+    const adapterHeaders = this.result.internalFetchHeaders || {};
+    const headersJson = safeJsonStringify(adapterHeaders);
     const method = useGETRequest ? (
       // GET request
-      `let response = await fetch('${serverIslandUrl}');`
+      `const headers = new Headers(${headersJson});
+let response = await fetch('${serverIslandUrl}', { headers });`
     ) : (
       // POST request
       `let data = {
 	componentExport: ${safeJsonStringify(componentExport)},
 	encryptedProps: ${safeJsonStringify(propsEncrypted)},
-	slots: ${safeJsonStringify(renderedSlots)},
+	encryptedSlots: ${safeJsonStringify(slotsEncrypted)},
 };
+const headers = new Headers({ 'Content-Type': 'application/json', ...${headersJson} });
 let response = await fetch('${serverIslandUrl}', {
 	method: 'POST',
 	body: JSON.stringify(data),
+	headers,
 });`
     );
     this.islandContent = `${method}replaceServerIsland('${hostId}', response);`;
@@ -2315,4 +2322,4 @@ function createVNode(type, props = {}, key) {
   return vnode;
 }
 
-export { AstroError as A, ExperimentalFontsNotEnabled as B, FontFamilyNotFound as C, MissingSharp as D, ExpectedImage as E, FailedToFetchRemoteImageDimensions as F, IncompatibleDescriptorOptions as I, LocalImageUsedWrongly as L, MissingImageDimension as M, NOOP_MIDDLEWARE_HEADER as N, RenderUndefinedEntryError as R, UnknownContentCollectionError as U, renderHead as a, addAttribute as b, createComponent as c, renderTemplate as d, createAstro as e, renderSlot as f, renderUniqueStylesheet as g, renderScriptElement as h, createHeadAndContent as i, renderJSX as j, createVNode as k, AstroJSX as l, maybeRenderHead as m, AstroUserError as n, decodeKey as o, UnsupportedImageFormat as p, UnsupportedImageConversion as q, renderComponent as r, spreadAttributes as s, toStyleString as t, unescapeHTML as u, NoImageMetadata as v, ExpectedImageOptions as w, ExpectedNotESMImage as x, InvalidImageService as y, ImageMissingAlt as z };
+export { AstroError as A, ImageMissingAlt as B, ExperimentalFontsNotEnabled as C, FontFamilyNotFound as D, ExpectedImage as E, FailedToFetchRemoteImageDimensions as F, IncompatibleDescriptorOptions as I, LocalImageUsedWrongly as L, MissingSharp as M, NOOP_MIDDLEWARE_HEADER as N, RenderUndefinedEntryError as R, UnknownContentCollectionError as U, renderHead as a, addAttribute as b, createComponent as c, renderTemplate as d, createAstro as e, renderSlot as f, renderUniqueStylesheet as g, renderScriptElement as h, createHeadAndContent as i, renderJSX as j, createVNode as k, AstroJSX as l, maybeRenderHead as m, AstroUserError as n, decodeKey as o, MissingImageDimension as p, UnsupportedImageFormat as q, renderComponent as r, spreadAttributes as s, UnsupportedImageConversion as t, unescapeHTML as u, toStyleString as v, NoImageMetadata as w, ExpectedImageOptions as x, ExpectedNotESMImage as y, InvalidImageService as z };

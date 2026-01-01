@@ -1,5 +1,5 @@
-import { A as AstroError, D as MissingSharp } from './astro/server.D6wEFtB3.js';
-import { b as baseService, p as parseQuality } from './_astro_assets.DHsWiZKJ.js';
+import { A as AstroError, M as MissingSharp } from './astro/server.o3BtfGB2.js';
+import { b as baseService, p as parseQuality } from './_astro_assets.CDJ9gu5G.js';
 
 let sharp;
 const qualityTable = {
@@ -87,8 +87,9 @@ const sharpService = {
       }
     }
     const { data, info } = await result.toBuffer({ resolveWithObject: true });
+    const needsCopy = "buffer" in data && data.buffer instanceof SharedArrayBuffer;
     return {
-      data,
+      data: needsCopy ? new Uint8Array(data) : data,
       format: info.format
     };
   }

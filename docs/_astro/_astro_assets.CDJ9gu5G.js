@@ -1,10 +1,10 @@
 import { joinPaths, isRemotePath } from '@astrojs/internal-helpers/path';
-import { A as AstroError, E as ExpectedImage, L as LocalImageUsedWrongly, M as MissingImageDimension, p as UnsupportedImageFormat, I as IncompatibleDescriptorOptions, q as UnsupportedImageConversion, t as toStyleString, v as NoImageMetadata, F as FailedToFetchRemoteImageDimensions, w as ExpectedImageOptions, x as ExpectedNotESMImage, y as InvalidImageService, e as createAstro, c as createComponent, z as ImageMissingAlt, m as maybeRenderHead, b as addAttribute, s as spreadAttributes, d as renderTemplate, B as ExperimentalFontsNotEnabled, C as FontFamilyNotFound, u as unescapeHTML } from './astro/server.D6wEFtB3.js';
-import { D as DEFAULT_OUTPUT_FORMAT, V as VALID_SUPPORTED_FORMATS, a as DEFAULT_HASH_PROPS } from './_astro_content.BOUxi--H.js';
+import { A as AstroError, E as ExpectedImage, L as LocalImageUsedWrongly, p as MissingImageDimension, q as UnsupportedImageFormat, I as IncompatibleDescriptorOptions, t as UnsupportedImageConversion, v as toStyleString, w as NoImageMetadata, F as FailedToFetchRemoteImageDimensions, x as ExpectedImageOptions, y as ExpectedNotESMImage, z as InvalidImageService, e as createAstro, c as createComponent, B as ImageMissingAlt, m as maybeRenderHead, b as addAttribute, s as spreadAttributes, d as renderTemplate, C as ExperimentalFontsNotEnabled, D as FontFamilyNotFound, u as unescapeHTML } from './astro/server.o3BtfGB2.js';
+import { D as DEFAULT_OUTPUT_FORMAT, V as VALID_SUPPORTED_FORMATS, a as DEFAULT_HASH_PROPS } from './_astro_content.B8aKNWTi.js';
 import { isRemoteAllowed } from '@astrojs/internal-helpers/remote';
 import * as mime from 'mrmime';
 import 'clsx';
-import 'kleur/colors';
+import 'piccolore';
 
 const DEFAULT_RESOLUTIONS = [
   640,
@@ -136,60 +136,63 @@ function parseQuality(quality) {
   return result;
 }
 const sortNumeric = (a, b) => a - b;
-const baseService = {
-  validateOptions(options) {
-    if (!options.src || !isRemoteImage(options.src) && !isESMImportedImage(options.src)) {
+function verifyOptions(options) {
+  if (!options.src || !isRemoteImage(options.src) && !isESMImportedImage(options.src)) {
+    throw new AstroError({
+      ...ExpectedImage,
+      message: ExpectedImage.message(
+        JSON.stringify(options.src),
+        typeof options.src,
+        JSON.stringify(options, (_, v) => v === void 0 ? null : v)
+      )
+    });
+  }
+  if (!isESMImportedImage(options.src)) {
+    if (options.src.startsWith("/@fs/") || !isRemotePath(options.src) && !options.src.startsWith("/")) {
       throw new AstroError({
-        ...ExpectedImage,
-        message: ExpectedImage.message(
-          JSON.stringify(options.src),
-          typeof options.src,
-          JSON.stringify(options, (_, v) => v === void 0 ? null : v)
+        ...LocalImageUsedWrongly,
+        message: LocalImageUsedWrongly.message(options.src)
+      });
+    }
+    let missingDimension;
+    if (!options.width && !options.height) {
+      missingDimension = "both";
+    } else if (!options.width && options.height) {
+      missingDimension = "width";
+    } else if (options.width && !options.height) {
+      missingDimension = "height";
+    }
+    if (missingDimension) {
+      throw new AstroError({
+        ...MissingImageDimension,
+        message: MissingImageDimension.message(missingDimension, options.src)
+      });
+    }
+  } else {
+    if (!VALID_SUPPORTED_FORMATS.includes(options.src.format)) {
+      throw new AstroError({
+        ...UnsupportedImageFormat,
+        message: UnsupportedImageFormat.message(
+          options.src.format,
+          options.src.src,
+          VALID_SUPPORTED_FORMATS
         )
       });
     }
-    if (!isESMImportedImage(options.src)) {
-      if (options.src.startsWith("/@fs/") || !isRemotePath(options.src) && !options.src.startsWith("/")) {
-        throw new AstroError({
-          ...LocalImageUsedWrongly,
-          message: LocalImageUsedWrongly.message(options.src)
-        });
-      }
-      let missingDimension;
-      if (!options.width && !options.height) {
-        missingDimension = "both";
-      } else if (!options.width && options.height) {
-        missingDimension = "width";
-      } else if (options.width && !options.height) {
-        missingDimension = "height";
-      }
-      if (missingDimension) {
-        throw new AstroError({
-          ...MissingImageDimension,
-          message: MissingImageDimension.message(missingDimension, options.src)
-        });
-      }
-    } else {
-      if (!VALID_SUPPORTED_FORMATS.includes(options.src.format)) {
-        throw new AstroError({
-          ...UnsupportedImageFormat,
-          message: UnsupportedImageFormat.message(
-            options.src.format,
-            options.src.src,
-            VALID_SUPPORTED_FORMATS
-          )
-        });
-      }
-      if (options.widths && options.densities) {
-        throw new AstroError(IncompatibleDescriptorOptions);
-      }
-      if (options.src.format === "svg") {
-        options.format = "svg";
-      }
-      if (options.src.format === "svg" && options.format !== "svg" || options.src.format !== "svg" && options.format === "svg") {
-        throw new AstroError(UnsupportedImageConversion);
-      }
+    if (options.widths && options.densities) {
+      throw new AstroError(IncompatibleDescriptorOptions);
     }
+    if (options.src.format === "svg" && options.format !== "svg" || options.src.format !== "svg" && options.format === "svg") {
+      throw new AstroError(UnsupportedImageConversion);
+    }
+  }
+}
+const baseService = {
+  validateOptions(options) {
+    if (isESMImportedImage(options.src) && options.src.format === "svg") {
+      options.format = "svg";
+    }
+    verifyOptions(options);
     if (!options.format) {
       options.format = DEFAULT_OUTPUT_FORMAT;
     }
@@ -304,7 +307,14 @@ const baseService = {
       options[key] && searchParams.append(param, options[key].toString());
     });
     const imageEndpoint = joinPaths("/", imageConfig.endpoint.route);
-    return `${imageEndpoint}?${searchParams}`;
+    let url = `${imageEndpoint}?${searchParams}`;
+    if (imageConfig.assetQueryParams) {
+      const assetQueryString = imageConfig.assetQueryParams.toString();
+      if (assetQueryString) {
+        url += "&" + assetQueryString;
+      }
+    }
+    return url;
   },
   parseURL(url) {
     const params = url.searchParams;
@@ -1184,11 +1194,19 @@ async function inferRemoteSize(url) {
   });
 }
 
+const PLACEHOLDER_BASE = "astro://placeholder";
+function createPlaceholderURL(pathOrUrl) {
+  return new URL(pathOrUrl, PLACEHOLDER_BASE);
+}
+function stringifyPlaceholderURL(url) {
+  return url.href.replace(PLACEHOLDER_BASE, "");
+}
+
 async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      './sharp.BXi-1diw.js'
+      './sharp.C4LhQ_Uq.js'
     ).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;
@@ -1314,6 +1332,22 @@ async function getImage$1(options, imageConfig) {
         attributes: srcSet.attributes
       };
     });
+  } else if (imageConfig.assetQueryParams) {
+    const imageURLObj = createPlaceholderURL(imageURL);
+    imageConfig.assetQueryParams.forEach((value, key) => {
+      imageURLObj.searchParams.set(key, value);
+    });
+    imageURL = stringifyPlaceholderURL(imageURLObj);
+    srcSets = srcSets.map((srcSet) => {
+      const urlObj = createPlaceholderURL(srcSet.url);
+      imageConfig.assetQueryParams.forEach((value, key) => {
+        urlObj.searchParams.set(key, value);
+      });
+      return {
+        ...srcSet,
+        url: stringifyPlaceholderURL(urlObj)
+      };
+    });
   }
   return {
     rawOptions: resolvedOptions,
@@ -1354,7 +1388,7 @@ const $$Image = createComponent(async ($$result, $$props, $$slots) => {
   }
   const { class: className, ...attributes } = { ...additionalAttributes, ...image.attributes };
   return renderTemplate`${maybeRenderHead()}<img${addAttribute(image.src, "src")}${spreadAttributes(attributes)}${addAttribute(className, "class")}>`;
-}, "/Users/koheeyoun/node_modules/astro/components/Image.astro", void 0);
+}, "/Users/koheeyun/Documents/im_document/heeyun-ko.github.io/node_modules/astro/components/Image.astro", void 0);
 
 const $$Astro$1 = createAstro("https://heeyun-ko.github.io");
 const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
@@ -1425,32 +1459,74 @@ const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
     const srcsetAttribute = props.densities || !props.densities && !props.widths && !useResponsive ? `${image.src}${image.srcSet.values.length > 0 ? ", " + image.srcSet.attribute : ""}` : image.srcSet.attribute;
     return renderTemplate`<source${addAttribute(srcsetAttribute, "srcset")}${addAttribute(mime.lookup(image.options.format ?? image.src) ?? `image/${image.options.format}`, "type")}${spreadAttributes(sourceAdditionalAttributes)}>`;
   })}  <img${addAttribute(fallbackImage.src, "src")}${spreadAttributes(attributes)}${addAttribute(className, "class")}> </picture>`;
-}, "/Users/koheeyoun/node_modules/astro/components/Picture.astro", void 0);
+}, "/Users/koheeyun/Documents/im_document/heeyun-ko.github.io/node_modules/astro/components/Picture.astro", void 0);
 
-const mod = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+const fontsMod = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null
 }, Symbol.toStringTag, { value: 'Module' }));
+
+function filterPreloads(data, preload) {
+  if (!preload) {
+    return null;
+  }
+  if (preload === true) {
+    return data;
+  }
+  return data.filter(
+    ({ weight, style, subset }) => preload.some((p) => {
+      if (p.weight !== void 0 && weight !== void 0 && !checkWeight(p.weight.toString(), weight)) {
+        return false;
+      }
+      if (p.style !== void 0 && p.style !== style) {
+        return false;
+      }
+      if (p.subset !== void 0 && p.subset !== subset) {
+        return false;
+      }
+      return true;
+    })
+  );
+}
+function checkWeight(input, target) {
+  const trimmedInput = input.trim();
+  if (trimmedInput.includes(" ")) {
+    return trimmedInput === target;
+  }
+  if (target.includes(" ")) {
+    const [a, b] = target.split(" ");
+    const parsedInput = Number.parseInt(input);
+    return parsedInput >= Number.parseInt(a) && parsedInput <= Number.parseInt(b);
+  }
+  return input === target;
+}
 
 const $$Astro = createAstro("https://heeyun-ko.github.io");
 const $$Font = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$Font;
-  const { fontsData } = mod;
-  if (!fontsData) {
+  const { internalConsumableMap } = fontsMod;
+  if (!internalConsumableMap) {
     throw new AstroError(ExperimentalFontsNotEnabled);
   }
   const { cssVariable, preload = false } = Astro2.props;
-  const data = fontsData.get(cssVariable);
+  const data = internalConsumableMap.get(cssVariable);
   if (!data) {
     throw new AstroError({
       ...FontFamilyNotFound,
       message: FontFamilyNotFound.message(cssVariable)
     });
   }
-  return renderTemplate`${preload && data.preloadData.map(({ url, type }) => renderTemplate`<link rel="preload"${addAttribute(url, "href")} as="font"${addAttribute(`font/${type}`, "type")} crossorigin>`)}<style>${unescapeHTML(data.css)}</style>`;
-}, "/Users/koheeyoun/node_modules/astro/components/Font.astro", void 0);
+  const filteredPreloadData = filterPreloads(data.preloadData, preload);
+  return renderTemplate`<style>${unescapeHTML(data.css)}</style>${filteredPreloadData?.map(({ url, type }) => renderTemplate`<link rel="preload"${addAttribute(url, "href")} as="font"${addAttribute(`font/${type}`, "type")} crossorigin>`)}`;
+}, "/Users/koheeyun/Documents/im_document/heeyun-ko.github.io/node_modules/astro/components/Font.astro", void 0);
 
-const imageConfig = {"endpoint":{"route":"/_image"},"service":{"entrypoint":"astro/assets/services/sharp","config":{}},"domains":[],"remotePatterns":[],"responsiveStyles":false};
+const assetQueryParams = undefined;
+							const imageConfig = {"endpoint":{"route":"/_image"},"service":{"entrypoint":"astro/assets/services/sharp","config":{}},"domains":[],"remotePatterns":[],"responsiveStyles":false};
+							Object.defineProperty(imageConfig, 'assetQueryParams', {
+								value: assetQueryParams,
+								enumerable: false,
+								configurable: true,
+							});
 							const getImage = async (options) => await getImage$1(options, imageConfig);
 
 const _astro_assets = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
