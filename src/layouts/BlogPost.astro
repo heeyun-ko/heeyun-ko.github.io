@@ -28,6 +28,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: 0 auto;
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
+				max-width: 100%;
+				height: auto;
 			}
 			.prose {
 				width: 720px;
@@ -51,6 +53,40 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.last-updated-on {
 				font-style: italic;
+			}
+
+			/* Mobile optimization */
+			@media (max-width: 720px) {
+				main {
+					width: 100%;
+				}
+
+				.hero-image img {
+					border-radius: 8px;
+				}
+
+				.prose {
+					padding: 0.75em;
+				}
+
+				.title {
+					padding: 0.75em 0;
+				}
+			}
+
+			/* Small mobile optimization */
+			@media (max-width: 480px) {
+				.prose {
+					padding: 0.5em;
+				}
+
+				.title {
+					padding: 0.5em 0;
+				}
+
+				.date {
+					font-size: 0.9rem;
+				}
 			}
 		</style>
 	</head>

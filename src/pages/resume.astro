@@ -447,6 +447,14 @@ import { SITE_TITLE } from '../consts';
 			font-size: 2rem;
 		}
 
+		.subtitle {
+			font-size: 1.1rem;
+		}
+
+		section h2 {
+			font-size: 1.5rem;
+		}
+
 		.contact-info {
 			flex-direction: column;
 			align-items: center;
@@ -461,6 +469,48 @@ import { SITE_TITLE } from '../consts';
 		.awards-grid,
 		.skills-grid {
 			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Small mobile optimization */
+	@media (max-width: 480px) {
+		.resume {
+			padding: 0.5rem;
+		}
+
+		.container {
+			padding: 1rem;
+		}
+
+		.resume-header h1 {
+			font-size: 1.75rem;
+		}
+
+		.subtitle {
+			font-size: 1rem;
+		}
+
+		section h2 {
+			font-size: 1.3rem;
+		}
+
+		.summary blockquote {
+			font-size: 1rem;
+			padding: 1rem;
+		}
+
+		.item h3 {
+			font-size: 1.1rem;
+		}
+
+		.contact-info {
+			font-size: 0.9rem;
+		}
+
+		/* Ensure touch targets are at least 44px */
+		.contact-item a {
+			padding: 0.5rem;
+			display: inline-block;
 		}
 	}
 </style>

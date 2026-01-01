@@ -19,6 +19,7 @@ const posts = (await getCollection('blog')).sort(
 		<style>
 			main {
 				width: 960px;
+				max-width: calc(100% - 2em);
 			}
 			ul {
 				display: flex;
@@ -69,11 +70,39 @@ const posts = (await getCollection('blog')).sort(
 					width: 100%;
 					text-align: center;
 				}
+				ul li img {
+					width: 100%;
+					height: auto;
+				}
+				.title {
+					font-size: 1rem;
+				}
 			}
 
 			@media (max-width: 960px) and (min-width: 769px) {
 				ul li {
 					width: calc(50% - 0.75rem);
+				}
+			}
+
+			/* Small mobile optimization */
+			@media (max-width: 480px) {
+				main {
+					padding: 1rem;
+				}
+				ul {
+					gap: 0.75rem;
+				}
+				.title {
+					font-size: 0.95rem;
+				}
+				.date {
+					font-size: 0.85rem;
+				}
+				/* Ensure touch targets are at least 44px */
+				ul li a {
+					min-height: 44px;
+					padding: 0.5rem 0;
 				}
 			}
 		</style>
