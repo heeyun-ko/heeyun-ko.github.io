@@ -23,8 +23,8 @@ const posts = (await getCollection('blog')).sort(
 			}
 			ul {
 				display: flex;
-				flex-wrap: wrap-reverse;
-				flex-direction: row-reverse;
+				flex-wrap: wrap;
+				flex-direction: row;
 				gap: 1.5rem;
 				list-style-type: none;
 				margin: 0;
@@ -64,7 +64,7 @@ const posts = (await getCollection('blog')).sort(
 			@media (max-width: 768px) {
 				ul {
 					gap: 1rem;
-					flex-direction: column-reverse;
+					flex-direction: column;
 				}
 				ul li {
 					width: 100%;
